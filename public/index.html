@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        !function () {
+            if ('PerformanceLongTaskTiming' in window) {
+                var g = window.__tti = {
+                    e: []
+                };
+                g.o = new PerformanceObserver(function (l) {
+                    g.e = g.e.concat(l.getEntries())
+                });
+                g.o.observe({
+                    entryTypes: ['longtask']
+                })
+            }
+        }();
+    </script>
+    <script src="main.js"></script>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <title>Time to Interactive Polyfill</title>
+    <script type="text/javascript" src="tti-polyfill.js"></script>
+    <script> ttiPolyfill.getFirstConsistentlyInteractive().then(console.log);
+    ttiPolyfill.getFirstConsistentlyInteractive().then((tti) => {
+        if (tti > 1) {
+            console.log({
+                'name': 'TTI',
+                'value': tti,
+                'event_category': 'Page Speed'
+            });
+        }
+    });
+    </script>
+</head>
+<body>
+<h1>Time to Interactive Polyfill</h1>
+<h2>Open the console tab</h2>
+</body>
+</html>
+
